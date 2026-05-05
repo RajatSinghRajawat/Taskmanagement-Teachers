@@ -58,9 +58,9 @@ const Tasks = () => {
 
    const stats = useMemo(() => [
       { label: 'Active Tasks', val: filteredTasks.length, color: 'text-indigo-600', bg: 'bg-indigo-50', icon: <MdListAlt size={26} /> },
-      { label: 'Pending Sync', val: filteredTasks.filter(t => t.Status === 'Pending').length, color: 'text-purple-600', bg: 'bg-purple-50', icon: <MdPendingActions size={26} /> },
-      { label: 'Deployment Success', val: filteredTasks.filter(t => t.Status === 'Completed').length, color: 'text-emerald-600', bg: 'bg-emerald-50', icon: <MdCheckCircleOutline size={26} /> },
-      { label: 'Critical Alerts', val: filteredTasks.filter(t => new Date(t.Deadline) < new Date() && t.Status !== 'Completed').length, color: 'text-rose-600', bg: 'bg-rose-50', icon: <MdErrorOutline size={26} /> },
+      { label: 'Pending', val: filteredTasks.filter(t => t.Status === 'Pending').length, color: 'text-purple-600', bg: 'bg-purple-50', icon: <MdPendingActions size={26} /> },
+      { label: 'Completed', val: filteredTasks.filter(t => t.Status === 'Completed').length, color: 'text-emerald-600', bg: 'bg-emerald-50', icon: <MdCheckCircleOutline size={26} /> },
+      { label: 'Overdue', val: filteredTasks.filter(t => new Date(t.Deadline) < new Date() && t.Status !== 'Completed').length, color: 'text-rose-600', bg: 'bg-rose-50', icon: <MdErrorOutline size={26} /> },
    ], [filteredTasks]);
 
 
@@ -75,10 +75,10 @@ const Tasks = () => {
          {/* Header */}
          <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-8 relative z-10">
             <div>
-               <h1 className="text-4xl font-black text-slate-800 tracking-tight font-display mb-1">Academic Task Wall</h1>
+               <h1 className="text-4xl font-black text-slate-800 tracking-tight font-display mb-1">Curriculum Management</h1>
                <p className="text-slate-400 font-bold text-[10px] tracking-[0.15em] uppercase flex items-center gap-2">
                   <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
-                  Live Curriculum Deployment Management
+                  Live Task & Assignment Control
                </p>
             </div>
             <div className="flex items-center gap-3 bg-white/50 backdrop-blur-xl p-2 rounded-3xl border border-white shadow-sm">
@@ -92,7 +92,7 @@ const Tasks = () => {
                   onClick={() => navigate('/tasks/create')} 
                   className="bg-indigo-600 text-white px-8 py-4 rounded-2xl font-black text-[11px] uppercase tracking-widest shadow-xl shadow-indigo-100 hover:bg-indigo-700 transition-all flex items-center gap-3 active:scale-95"
                >
-                  <MdAdd size={22} /> New Deployment
+                  <MdAdd size={22} /> Create New Task
                </button>
             </div>
          </div>

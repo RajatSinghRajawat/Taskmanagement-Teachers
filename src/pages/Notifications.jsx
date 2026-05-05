@@ -108,8 +108,14 @@ const Notifications = () => {
                 >
                   <div className="absolute top-0 right-0 w-32 h-32 bg-indigo-600 opacity-[0.02] rounded-bl-full" />
                   
-                  <div className={`w-18 h-18 rounded-[28px] flex items-center justify-center text-3xl shadow-lg shrink-0 relative z-10 transition-transform group-hover:scale-110 ${note.type === 'Task_Overdue' ? 'bg-rose-50 text-rose-500 shadow-rose-100' : 'bg-indigo-50 text-indigo-600 shadow-indigo-100'}`}>
-                    {note.type === 'Task_Overdue' ? <MdWarningAmber /> : <MdAutoFixHigh />}
+                  <div className={`w-18 h-18 rounded-[28px] flex items-center justify-center text-3xl shadow-lg shrink-0 relative z-10 transition-transform group-hover:scale-110 ${
+                    note.type === 'Task_Overdue' || note.type === 'Missed_Deadline' ? 'bg-rose-50 text-rose-500 shadow-rose-100' : 
+                    note.type === 'Late_Submission' ? 'bg-amber-50 text-amber-500 shadow-amber-100' :
+                    'bg-indigo-50 text-indigo-600 shadow-indigo-100'
+                  }`}>
+                    {note.type === 'Task_Overdue' || note.type === 'Missed_Deadline' ? <MdWarningAmber /> : 
+                     note.type === 'Late_Submission' ? <MdTimer /> :
+                     <MdAutoFixHigh />}
                   </div>
 
                   <div className="flex-1 relative z-10">

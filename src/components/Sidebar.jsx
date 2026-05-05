@@ -68,12 +68,12 @@ const Sidebar = ({ isMobileOpen, setIsMobileOpen }) => {
 
   const menuItems = [
     { name: "Dashboard", path: "/dashboard", icon: <MdSpaceDashboard size={22} /> },
-    { name: "Tasks", path: "/tasks", icon: <MdTaskAlt size={22} /> },
-    { name: "Students", path: "/students", icon: <MdPeopleOutline size={22} /> },
-    { name: "Reports", path: "/reports", icon: <MdInsertChartOutlined size={22} /> },
-    { name: "Materials", path: "/materials", icon: <MdOutlineFolderZip size={22} /> },
+    { name: "Assignments", path: "/tasks", icon: <MdTaskAlt size={22} /> },
+    { name: "Student Directory", path: "/students", icon: <MdPeopleOutline size={22} /> },
+    { name: "Performance Analytics", path: "/reports", icon: <MdInsertChartOutlined size={22} /> },
+    { name: "Learning Assets", path: "/materials", icon: <MdOutlineFolderZip size={22} /> },
     { name: "Notifications", path: "/notifications", icon: <MdNotificationsNone size={22} /> },
-    { name: "Profile", path: "/profile", icon: <MdOutlinePersonOutline size={22} /> },
+    { name: "Account Settings", path: "/profile", icon: <MdOutlinePersonOutline size={22} /> },
   ];
 
   const sidebarVariants = {
@@ -181,7 +181,7 @@ const Sidebar = ({ isMobileOpen, setIsMobileOpen }) => {
               {(isMobile || isOpen) && (
                 <div className="overflow-hidden animate-in fade-in slide-in-from-left-2 duration-300">
                   <p className="text-sm font-bold text-slate-800 truncate leading-none mb-1 font-display">
-                    {user?.name ? `${user.name.split(' ')[0]} Sir` : 'Teacher Sir'}
+                    {user?.name ? `${user.name.split(' ')[0]} ${user.gender === 'Female' ? 'Mam' : 'Sir'}` : 'Teacher'}
                   </p>
                   <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">
                     Admin

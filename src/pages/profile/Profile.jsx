@@ -23,7 +23,7 @@ const Profile = () => {
   
   const [profile, setProfile] = useState({
     name: '', email: '', designation: '', phone: '', profileImage: '', 
-    subject: '', joinedDate: ''
+    subject: '', joinedDate: '', gender: 'Male'
   });
   const [passwords, setPasswords] = useState({ newPassword: '', confirmPassword: '' });
   const [selectedImage, setSelectedImage] = useState(null);
@@ -63,6 +63,7 @@ const Profile = () => {
       formData.append('phone', profile.phone || '');
       formData.append('subject', profile.subject || '');
       formData.append('joinedDate', profile.joinedDate || '');
+      formData.append('gender', profile.gender || 'Male');
       if (selectedImage) formData.append('profileImage', selectedImage);
 
       const res = await axios.put(`${API}/update`, formData, {
@@ -245,6 +246,18 @@ const Profile = () => {
                     <div>
                        <label className={lbl}>Joined Date</label>
                        <input disabled={!isEditing} value={profile.joinedDate} onChange={e => setProfile({...profile, joinedDate: e.target.value})} className={inp} placeholder="Date" />
+                    </div>
+                    <div>
+                       <label className={lbl}>Gender</label>
+                       <select 
+                          disabled={!isEditing} 
+                          value={profile.gender || 'Male'} 
+                          onChange={e => setProfile({...profile, gender: e.target.value})} 
+                          className={inp}
+                       >
+                          <option value="Male">Sir (Male)</option>
+                          <option value="Female">Mam (Female)</option>
+                       </select>
                     </div>
                  </div>
 

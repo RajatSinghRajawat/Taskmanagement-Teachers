@@ -8,6 +8,7 @@ const Register = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [gender, setGender] = useState('Male');
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
@@ -20,7 +21,7 @@ const Register = () => {
       const response = await fetch("http://localhost:7001/api/auth/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, email, password })
+        body: JSON.stringify({ name, email, password, gender })
       });
       const result = await response.json();
 
@@ -160,8 +161,27 @@ const Register = () => {
                     onChange={(e) => setPassword(e.target.value)}
                     className="w-full pl-16 pr-6 py-4.5 bg-white/60 border border-slate-100 text-slate-800 text-sm font-bold rounded-[22px] focus:outline-none focus:border-purple-500 focus:ring-8 focus:ring-purple-500/5 transition-all placeholder:text-slate-200 shadow-sm"
                     placeholder="Create secure logic key..."
-                    required
                   />
+                </div>
+              </div>
+
+              <div className="space-y-1.5">
+                <label className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] ml-1">Gender</label>
+                <div className="flex gap-4">
+                  <button 
+                    type="button"
+                    onClick={() => setGender('Male')}
+                    className={`flex-1 py-3.5 rounded-[22px] border font-bold text-xs uppercase tracking-widest transition-all ${gender === 'Male' ? 'bg-slate-900 text-white border-slate-900 shadow-lg' : 'bg-white text-slate-400 border-slate-100 hover:border-slate-300'}`}
+                  >
+                    Sir (Male)
+                  </button>
+                  <button 
+                    type="button"
+                    onClick={() => setGender('Female')}
+                    className={`flex-1 py-3.5 rounded-[22px] border font-bold text-xs uppercase tracking-widest transition-all ${gender === 'Female' ? 'bg-purple-600 text-white border-purple-600 shadow-lg' : 'bg-white text-slate-400 border-slate-100 hover:border-slate-300'}`}
+                  >
+                    Mam (Female)
+                  </button>
                 </div>
               </div>
 

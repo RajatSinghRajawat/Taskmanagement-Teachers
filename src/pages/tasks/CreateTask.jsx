@@ -204,8 +204,8 @@ const CreateTask = () => {
             <MdArrowBack size={24} />
           </button>
           <div>
-            <h1 className="text-3xl font-black text-slate-800 tracking-tight font-display">Module Deployment</h1>
-            <p className="text-slate-400 font-medium text-sm mt-1">Deploy Standard Tasks or Sync Interactive Questions Wall.</p>
+            <h1 className="text-3xl font-black text-slate-800 tracking-tight font-display">Task Management</h1>
+            <p className="text-slate-400 font-medium text-sm mt-1">Create assignments or interactive quizzes for your students.</p>
           </div>
         </div>
       </div>
@@ -222,19 +222,19 @@ const CreateTask = () => {
                 <MdLibraryBooks />
               </div>
               <div>
-                <h2 className="text-xl font-bold text-slate-800 font-display">Standard Task</h2>
-                <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">General Assignments</p>
+                <h2 className="text-xl font-bold text-slate-800 font-display">Assignment</h2>
+                <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">General Tasks</p>
               </div>
             </div>
 
             <div className="space-y-6">
               <div>
-                <label className={lblClass}>Mission Headline</label>
+                <label className={lblClass}>Task Title</label>
                 <input className={inpClass} value={form.Title} onChange={e => handleInputChange('Title', e.target.value)} placeholder="Enter task title..." />
               </div>
               <div>
-                <label className={lblClass}>Mission Description</label>
-                <textarea className={`${inpClass} min-h-[80px] resize-none`} value={form.Description} onChange={e => handleInputChange('Description', e.target.value)} placeholder="Describe objectives..." />
+                <label className={lblClass}>Instructions</label>
+                <textarea className={`${inpClass} min-h-[80px] resize-none`} value={form.Description} onChange={e => handleInputChange('Description', e.target.value)} placeholder="Enter task instructions..." />
               </div>
 
               <div className="grid grid-cols-2 gap-4">
@@ -253,7 +253,7 @@ const CreateTask = () => {
               </div>
 
               <div className="p-6 bg-indigo-50/30 rounded-3xl border border-indigo-100/50">
-                <label className={lblClass}>Assets Vault</label>
+                <label className={lblClass}>Resource Upload</label>
                 <div className="relative group cursor-pointer">
                   <input type="file" multiple onChange={e => setSelectedFiles(prev => [...prev, ...Array.from(e.target.files)])} className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10" />
                   <div className="bg-white border-2 border-dashed border-indigo-200 rounded-2xl p-6 text-center group-hover:border-indigo-400 group-hover:bg-indigo-50/50 transition-all">
@@ -279,7 +279,7 @@ const CreateTask = () => {
               disabled={loading}
               className="mt-8 w-full bg-slate-900 text-white py-4 rounded-2xl font-bold text-sm shadow-xl hover:bg-indigo-600 transition-all active:scale-95 flex items-center justify-center gap-3"
             >
-              <MdLibraryBooks size={20} /> Deploy Standard Task
+              <MdLibraryBooks size={20} /> Create Assignment
             </button>
           </div>
         </div>
@@ -295,10 +295,10 @@ const CreateTask = () => {
                   <MdLayers />
                 </div>
                 <div>
-                  <h2 className="text-2xl font-black text-slate-800 font-display">Questions Wall</h2>
+                  <h2 className="text-2xl font-black text-slate-800 font-display">Interactive Quiz</h2>
                   <p className="text-[11px] font-bold text-slate-400 uppercase tracking-widest flex items-center gap-2">
                     <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                    Interactive Lab Active
+                    Live Quiz Mode Active
                   </p>
                 </div>
               </div>
@@ -346,7 +346,7 @@ const CreateTask = () => {
                          
                          <div className="mt-8 space-y-6">
                             <div>
-                               <label className={lblClass}>Question Logic</label>
+                               <label className={lblClass}>Question Text</label>
                                <textarea 
                                   className={`${inpClass} py-4 min-h-[60px] resize-none`} 
                                   value={q.questionText} 
@@ -356,7 +356,7 @@ const CreateTask = () => {
                             </div>
                             
                             <div className="space-y-4">
-                               <label className={lblClass}>Response Mode (Open Options)</label>
+                               <label className={lblClass}>Response Mode</label>
                                <div className="flex gap-3">
                                   <TypeButton 
                                     type="Short Answer" 
@@ -391,7 +391,7 @@ const CreateTask = () => {
                                     exit={{ height: 0, opacity: 0 }}
                                     className="pt-4 space-y-3 overflow-hidden"
                                  >
-                                    <label className={lblClass}>Logic Paths (MCQ Options)</label>
+                                    <label className={lblClass}>Answer Options (MCQ)</label>
                                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                                        {q.options.map((opt, oIdx) => (
                                          <div key={oIdx} className="flex items-center gap-3">
@@ -433,7 +433,7 @@ const CreateTask = () => {
               disabled={loading}
               className="mt-8 w-full bg-indigo-600 text-white py-5 rounded-[24px] font-black text-[12px] uppercase tracking-[0.2em] shadow-xl shadow-indigo-100 hover:bg-indigo-700 transition-all active:scale-95 flex items-center justify-center gap-3"
             >
-              <MdRocketLaunch size={24} /> Sync Questions Wall
+              <MdRocketLaunch size={24} /> Publish Quiz
             </button>
           </div>
         </div>

@@ -20,17 +20,20 @@ const StudentDetail = () => {
   const navigate = useNavigate();
   const [student, setStudent] = useState(null);
   const [reports, setReports] = useState([]);
+  const [activity, setActivity] = useState([]);
   const [loading, setLoading] = useState(true);
 
   const fetchStudentData = useCallback(async () => {
     setLoading(true);
     try {
       const config = { headers: { Authorization: `Bearer ${AUTH_TOKEN()}` } };
-      const [stuRes, repRes] = await Promise.all([
+      const [stuRes, repRes, actRes] = await Promise.all([
         axios.get(`${API}/${id}`, config),
-        axios.get(REPORTS_API, config)
+        axios.get(REPORTS_API, config),
+        axios.get(`${API}/${id}/activity`, config)
       ]);
       setStudent(stuRes.data);
+      setActivity(actRes.data || []);
       // Filter reports for this specific student
       const studentReports = (repRes.data.reports || []).filter(r => r.student?._id === id || r.student === id);
       setReports(studentReports);
@@ -47,7 +50,7 @@ const StudentDetail = () => {
   if (loading) return (
     <div className="flex flex-col items-center justify-center min-h-[60vh] gap-4">
       <div className="w-10 h-10 border-4 border-indigo-100 border-t-indigo-600 rounded-full animate-spin"></div>
-      <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Syncing Personnel Dossier...</p>
+      <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Loading Student Profile...</p>
     </div>
   );
 
@@ -57,9 +60,9 @@ const StudentDetail = () => {
   
   const stats = [
     { label: 'Attendance', value: `${attendanceRate}%`, icon: <MdOutlineCalendarMonth/>, color: 'text-emerald-600' },
-    { label: 'Avg. Score', value: `${student.averageMarks || 0}%`, icon: <MdAnalytics/>, color: 'text-indigo-600' },
-    { label: 'Tasks Done', value: student.tasksCompleted || 0, icon: <MdCheckCircle/>, color: 'text-purple-600' },
-    { label: 'Intelligence', value: reports.length, icon: <MdDescription/>, color: 'text-amber-600' },
+    { label: 'Academic Performance', value: `${student.averageMarks || 0}%`, icon: <MdAnalytics/>, color: 'text-indigo-600' },
+    { label: 'Tasks Completed', value: student.tasksCompleted || 0, icon: <MdCheckCircle/>, color: 'text-purple-600' },
+    { label: 'Reports Published', value: reports.length, icon: <MdDescription/>, color: 'text-amber-600' },
   ];
 
   return (
@@ -69,10 +72,10 @@ const StudentDetail = () => {
       {/* 🚀 HEADER */}
       <div className="flex justify-between items-center">
         <button onClick={() => navigate('/students')} className="flex items-center gap-2 text-slate-400 hover:text-indigo-600 transition-colors font-bold text-sm uppercase tracking-widest active:scale-95">
-          <MdArrowBack size={20}/> Directory
+          <MdArrowBack size={20}/> Student Directory
         </button>
         <button className="bg-indigo-600 text-white px-8 py-3 rounded-2xl font-bold text-xs shadow-xl shadow-indigo-100 hover:bg-indigo-700 transition-all flex items-center gap-2 active:scale-95">
-          <MdEdit size={18} /> Modify Profile
+          <MdEdit size={18} /> Update Profile
         </button>
       </div>
 
@@ -113,7 +116,7 @@ const StudentDetail = () => {
              <div className="absolute top-0 right-0 w-32 h-32 bg-indigo-500/10 rounded-full translate-x-16 -translate-y-16 blur-2xl group-hover:scale-110 transition-transform duration-1000"></div>
              <div className="relative z-10">
                 <h3 className="text-[10px] font-black text-slate-500 uppercase tracking-[0.3em] mb-6 flex items-center gap-3">
-                   <div className="w-2 h-2 bg-indigo-500 rounded-full animate-pulse" /> Active Intelligence
+                   <div className="w-2 h-2 bg-indigo-500 rounded-full animate-pulse" /> Student Reports
                 </h3>
                 <div className="space-y-4">
                    {reports.length > 0 ? reports.slice(0, 3).map((r, i) => (
@@ -124,7 +127,7 @@ const StudentDetail = () => {
                          </div>
                       </div>
                    )) : (
-                      <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest italic">No dossiers found in registry.</p>
+                      <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest italic">No reports generated yet.</p>
                    )}
                    {reports.length > 3 && <button onClick={() => navigate('/reports')} className="text-[9px] font-black text-indigo-400 uppercase tracking-widest hover:underline mt-2">View All Reports</button>}
                 </div>
@@ -144,11 +147,87 @@ const StudentDetail = () => {
               ))}
            </div>
 
+           {/* 🟢 CONTRIBUTION GRAPH (ENHANCED) */}
+           <div className="bg-white/80 backdrop-blur-2xl rounded-[40px] border border-slate-200/50 shadow-sm p-8 space-y-8 relative overflow-hidden">
+              <div className="flex justify-between items-center">
+                 <div>
+                    <h3 className="text-lg font-black text-slate-800 font-display">Task Contribution Activity</h3>
+                    <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mt-1">Real-time performance mapping</p>
+                 </div>
+                 <div className="flex items-center gap-4">
+                    <div className="flex items-center gap-1.5"><div className="w-2.5 h-2.5 rounded-[4px] bg-emerald-500" /><span className="text-[9px] font-bold text-slate-400 uppercase">On-Time</span></div>
+                    <div className="flex items-center gap-1.5"><div className="w-2.5 h-2.5 rounded-[4px] bg-amber-500" /><span className="text-[9px] font-bold text-slate-400 uppercase">Late</span></div>
+                    <div className="flex items-center gap-1.5"><div className="w-2.5 h-2.5 rounded-[4px] bg-rose-500" /><span className="text-[9px] font-bold text-slate-400 uppercase">Missed</span></div>
+                 </div>
+              </div>
+              
+              <div className="flex gap-4">
+                 {/* Weekday Labels (Hindi/Urdu Terms Mapping) */}
+                 <div className="flex flex-col justify-between py-1 text-[9px] font-black text-slate-300 uppercase tracking-tight">
+                    <span>SOM</span>
+                    <span>MAN</span>
+                    <span>BUD</span>
+                    <span>JUM</span>
+                    <span>SHU</span>
+                    <span>SAN</span>
+                    <span>AIT</span>
+                 </div>
+
+                 <div className="flex-1 overflow-x-auto scrollbar-hide">
+                    <div className="flex gap-2">
+                       {/* GitHub-like grid: Weeks as columns */}
+                       {Array.from({ length: 12 }).map((_, weekIdx) => (
+                          <div key={weekIdx} className="flex flex-col gap-2">
+                             {Array.from({ length: 7 }).map((_, dayIdx) => {
+                                const totalDays = (11 - weekIdx) * 7 + (6 - dayIdx);
+                                const date = new Date();
+                                date.setDate(date.getDate() - totalDays);
+                                const dateStr = date.toISOString().split('T')[0];
+                                const dayActivity = activity.find(a => a.date === dateStr);
+                                
+                                let color = 'bg-slate-100';
+                                if (dayActivity) {
+                                   if (dayActivity.status === 'Completed') color = 'bg-emerald-500 shadow-lg shadow-emerald-500/20';
+                                   else if (dayActivity.status === 'Late') color = 'bg-amber-500 shadow-lg shadow-amber-500/20';
+                                   else if (dayActivity.status === 'Missed') color = 'bg-rose-500 shadow-lg shadow-rose-500/20';
+                                }
+
+                                return (
+                                   <div 
+                                     key={dayIdx} 
+                                     title={dayActivity ? `${dayActivity.taskTitle} (${dayActivity.fullDate}): ${dayActivity.status}` : `${date.toDateString()}: No Activity`}
+                                     onClick={() => dayActivity && navigate(`/tasks/${dayActivity.taskId}`)}
+                                     className={`w-4 h-4 rounded-[4px] ${color} transition-all hover:scale-125 cursor-pointer relative group`}
+                                   >
+                                      {dayActivity && (
+                                         <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-3 py-2 bg-slate-900 text-white rounded-xl opacity-0 group-hover:opacity-100 transition-all whitespace-nowrap z-50 pointer-events-none shadow-2xl border border-white/10">
+                                            <p className="text-[10px] font-black uppercase tracking-widest text-indigo-400 mb-0.5">{dayActivity.status}</p>
+                                            <p className="text-[9px] font-bold text-white mb-1">{dayActivity.taskTitle}</p>
+                                            <p className="text-[8px] font-medium text-slate-400">{dayActivity.fullDate}</p>
+                                         </div>
+                                      )}
+                                   </div>
+                                );
+                             })}
+                          </div>
+                       ))}
+                    </div>
+                 </div>
+              </div>
+              
+              <div className="pt-6 border-t border-slate-50 flex items-center justify-between">
+                 <p className="text-[9px] font-bold text-slate-400 uppercase tracking-widest italic opacity-60">Displaying task history for the last 84 days (12 weeks).</p>
+                 <div className="flex items-center gap-2 text-[9px] font-black text-indigo-600 uppercase tracking-widest bg-indigo-50 px-4 py-1.5 rounded-full border border-indigo-100">
+                    <MdAutoFixHigh size={14} /> Total Impact: {activity.filter(a => a.status === 'Completed').length} Missions
+                 </div>
+              </div>
+           </div>
+
            <div className="bg-white/80 backdrop-blur-2xl rounded-[40px] border border-slate-200/50 shadow-sm overflow-hidden">
               <div className="p-8 border-b border-slate-50 bg-slate-50/30 flex justify-between items-center">
-                 <h3 className="text-lg font-black text-slate-800 font-display">Mission Timeline</h3>
+                 <h3 className="text-lg font-black text-slate-800 font-display">Mission History</h3>
                  <span className="text-[9px] font-black text-indigo-600 uppercase tracking-widest bg-indigo-50 px-4 py-1.5 rounded-full border border-indigo-100">
-                    {student.assignedTasks?.length || 0} Modules
+                    {student.tasks?.length || 0} Assignments
                  </span>
               </div>
               <div className="overflow-x-auto scrollbar-hide">
@@ -157,24 +236,35 @@ const StudentDetail = () => {
                        <tr className="border-b border-slate-50 bg-slate-50/20">
                           <th className="px-8 py-4 text-[9px] font-black text-slate-400 uppercase tracking-widest">Operation</th>
                           <th className="px-8 py-4 text-[9px] font-black text-slate-400 uppercase tracking-widest text-center">Status</th>
+                          <th className="px-8 py-4 text-[9px] font-black text-slate-400 uppercase tracking-widest text-center">Submission</th>
                        </tr>
                     </thead>
                     <tbody className="divide-y divide-slate-50">
-                       {student.assignedTasks && student.assignedTasks.length > 0 ? student.assignedTasks.map((task, i) => (
+                       {student.tasks && student.tasks.length > 0 ? student.tasks.map((task, i) => (
                          <tr key={i} className="hover:bg-indigo-50/30 transition-colors group">
                             <td className="px-8 py-5">
                                <p className="text-sm font-black text-slate-700 group-hover:text-indigo-600 transition-colors">{task.Title || "Untitled Task"}</p>
-                               <p className="text-[9px] text-slate-400 font-bold uppercase tracking-widest">{task.course}</p>
+                               <p className="text-[9px] text-slate-400 font-bold uppercase tracking-widest">Deadline: {new Date(task.Deadline).toLocaleDateString()}</p>
                             </td>
                             <td className="px-8 py-5 text-center">
-                               <span className={`text-[9px] font-black uppercase tracking-widest px-4 py-1.5 rounded-xl ${task.Status === 'Completed' ? 'bg-emerald-50 text-emerald-600' : 'bg-amber-50 text-amber-500'}`}>
-                                  {task.Status}
+                               <span className={`text-[9px] font-black uppercase tracking-widest px-4 py-1.5 rounded-xl ${
+                                 task.submissionStatus === 'Submitted' || task.submissionStatus === 'Graded' || task.submissionStatus === 'Completed' ? 'bg-emerald-50 text-emerald-600' : 
+                                 task.submissionStatus === 'Late' ? 'bg-amber-50 text-amber-500' :
+                                 task.submissionStatus === 'Missed' ? 'bg-rose-50 text-rose-600' :
+                                 'bg-slate-50 text-slate-400'
+                               }`}>
+                                  {task.submissionStatus || task.Status}
                                </span>
+                            </td>
+                            <td className="px-8 py-5 text-center">
+                               <p className="text-[10px] font-bold text-slate-500">
+                                  {task.submissionDate ? new Date(task.submissionDate).toLocaleString() : '---'}
+                               </p>
                             </td>
                          </tr>
                        )) : (
                          <tr>
-                            <td colSpan="2" className="py-20 text-center opacity-30 text-[10px] font-bold uppercase tracking-widest">No Operational History</td>
+                            <td colSpan="3" className="py-20 text-center opacity-30 text-[10px] font-bold uppercase tracking-widest">No Operational History</td>
                          </tr>
                        )}
                     </tbody>
