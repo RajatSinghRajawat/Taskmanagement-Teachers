@@ -22,6 +22,7 @@ const StudentDetail = () => {
   const [reports, setReports] = useState([]);
   const [activity, setActivity] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [selectedActivity, setSelectedActivity] = useState(null);
 
   const fetchStudentData = useCallback(async () => {
     setLoading(true);
@@ -175,7 +176,6 @@ const StudentDetail = () => {
 
                  <div className="flex-1 overflow-x-auto scrollbar-hide">
                     <div className="flex gap-2">
-                       {/* GitHub-like grid: Weeks as columns */}
                        {Array.from({ length: 12 }).map((_, weekIdx) => (
                           <div key={weekIdx} className="flex flex-col gap-2">
                              {Array.from({ length: 7 }).map((_, dayIdx) => {
@@ -196,16 +196,9 @@ const StudentDetail = () => {
                                    <div 
                                      key={dayIdx} 
                                      title={dayActivity ? `${dayActivity.taskTitle} (${dayActivity.fullDate}): ${dayActivity.status}` : `${date.toDateString()}: No Activity`}
-                                     onClick={() => dayActivity && navigate(`/tasks/${dayActivity.taskId}`)}
+                                     onClick={() => dayActivity && setSelectedActivity(dayActivity)}
                                      className={`w-4 h-4 rounded-[4px] ${color} transition-all hover:scale-125 cursor-pointer relative group`}
                                    >
-                                      {dayActivity && (
-                                         <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-3 py-2 bg-slate-900 text-white rounded-xl opacity-0 group-hover:opacity-100 transition-all whitespace-nowrap z-50 pointer-events-none shadow-2xl border border-white/10">
-                                            <p className="text-[10px] font-black uppercase tracking-widest text-indigo-400 mb-0.5">{dayActivity.status}</p>
-                                            <p className="text-[9px] font-bold text-white mb-1">{dayActivity.taskTitle}</p>
-                                            <p className="text-[8px] font-medium text-slate-400">{dayActivity.fullDate}</p>
-                                         </div>
-                                      )}
                                    </div>
                                 );
                              })}
@@ -221,6 +214,35 @@ const StudentDetail = () => {
                     <MdAutoFixHigh size={14} /> Total Impact: {activity.filter(a => a.status === 'Completed').length} Missions
                  </div>
               </div>
+
+              <AnimatePresence>
+                 {selectedActivity && (
+                    <motion.div 
+                       initial={{ opacity: 0, scale: 0.9 }} 
+                       animate={{ opacity: 1, scale: 1 }} 
+                       exit={{ opacity: 0, scale: 0.9 }}
+                       className="absolute inset-0 bg-slate-900/95 backdrop-blur-md z-[60] flex flex-col items-center justify-center p-8 text-center rounded-[40px]"
+                    >
+                       <button onClick={() => setSelectedActivity(null)} className="absolute top-8 right-8 p-3 bg-white/10 text-white/40 rounded-2xl hover:text-white transition-all"><MdArrowBack className="rotate-90" size={20} /></button>
+                       <div className={`w-16 h-16 rounded-[28px] mb-6 flex items-center justify-center ${selectedActivity.status === 'Completed' ? 'bg-emerald-500' : selectedActivity.status === 'Late' ? 'bg-amber-500' : 'bg-rose-500'} text-white shadow-2xl shadow-slate-900/50`}>
+                          <MdCheckCircle size={32} />
+                       </div>
+                       <h4 className="text-white font-black text-xl uppercase tracking-tight mb-2 font-display">{selectedActivity.taskTitle}</h4>
+                       <p className="text-slate-400 text-[10px] font-black uppercase tracking-[0.3em] mb-6">{selectedActivity.fullDate}</p>
+                       <div className="flex flex-col gap-4 w-full max-w-[240px]">
+                          <div className={`px-6 py-3 rounded-2xl text-[10px] font-black uppercase tracking-[0.2em] shadow-lg ${selectedActivity.status === 'Completed' ? 'bg-emerald-500 text-white' : selectedActivity.status === 'Late' ? 'bg-amber-500 text-white' : 'bg-rose-500 text-white'}`}>
+                             {selectedActivity.status}
+                          </div>
+                          <button 
+                             onClick={() => navigate(`/tasks/${selectedActivity.taskId}`)}
+                             className="px-6 py-3 bg-white/10 hover:bg-white/20 text-white rounded-2xl text-[10px] font-black uppercase tracking-[0.2em] transition-all flex items-center justify-center gap-2"
+                          >
+                             <MdVisibility size={16} /> INSPECT MISSION
+                          </button>
+                       </div>
+                    </motion.div>
+                 )}
+              </AnimatePresence>
            </div>
 
            <div className="bg-white/80 backdrop-blur-2xl rounded-[40px] border border-slate-200/50 shadow-sm overflow-hidden">
