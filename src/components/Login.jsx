@@ -56,13 +56,14 @@ const Login = () => {
           <div className="absolute -left-20 -bottom-20 w-96 h-96 bg-indigo-500/20 rounded-full blur-[100px]" />
           
           <div className="relative z-10">
-            <div className="flex items-center gap-4">
-              <div className="w-14 h-14 rounded-2xl bg-white/10 backdrop-blur-xl flex items-center justify-center border border-white/20 shadow-2xl">
-                 <MdRocketLaunch className="text-white text-3xl" />
+            <div className="flex items-center gap-6">
+              <div className="p-4 rounded-3xl bg-white/10 backdrop-blur-2xl border border-white/20 shadow-2xl">
+                 <img src="/logo.png" alt="Logo" className="h-20 w-auto invert brightness-0" />
               </div>
+              <div className="h-16 w-px bg-white/20"></div>
               <div>
-                <h1 className="font-black text-3xl text-white tracking-tighter uppercase font-display">TIPS G</h1>
-                <p className="text-[10px] uppercase tracking-[0.4em] text-indigo-300 font-black">Alwar Intelligence</p>
+                <h1 className="font-black text-2xl text-white tracking-tighter uppercase font-display leading-none">Faculty</h1>
+                <p className="text-[10px] uppercase tracking-[0.4em] text-indigo-300 font-black mt-1">Intelligence Portal</p>
               </div>
             </div>
           </div>

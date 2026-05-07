@@ -1,4 +1,7 @@
-import { useState, useEffect, useCallback, useMemo } from 'react';
+const fs = require('fs');
+const path = "c:/Users/acer/OneDrive/Desktop/Task Management App/Taskmanagement-Teachers/src/pages/reports/Reports.jsx";
+
+const content = \`import { useState, useEffect, useCallback, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import toast, { Toaster } from 'react-hot-toast';
@@ -46,8 +49,8 @@ const CreateReportModal = ({ onClose, onSaved }) => {
   const fetchTestHistory = useCallback(async (sid, from, to) => {
     if (!sid) return;
     try {
-      const res = await axios.get(`${REPORTS_API}/student/${sid}/test-history`, { 
-        headers: { Authorization: `Bearer ${AUTH_TOKEN()}` } 
+      const res = await axios.get(\`\${REPORTS_API}/student/\${sid}/test-history\`, { 
+        headers: { Authorization: \`Bearer \${AUTH_TOKEN()}\` } 
       });
       let fetchedTests = res.data.tests || [];
       
@@ -62,7 +65,7 @@ const CreateReportModal = ({ onClose, onSaved }) => {
 
       if (fetchedTests.length > 0) {
         setTests(fetchedTests);
-        toast.success(`Synced ${fetchedTests.length} tests for this period`);
+        toast.success(\`Synced \${fetchedTests.length} tests for this period\`);
       } else {
         setTests([{ testName: '', marksObtained: '', totalMarks: '', date: new Date().toISOString().split('T')[0] }]);
       }
@@ -80,7 +83,7 @@ const CreateReportModal = ({ onClose, onSaved }) => {
   useEffect(() => {
     const fetchStudents = async () => {
       try {
-        const res = await axios.get(STUDENTS_API, { headers: { Authorization: `Bearer ${AUTH_TOKEN()}` } });
+        const res = await axios.get(STUDENTS_API, { headers: { Authorization: \`Bearer \${AUTH_TOKEN()}\` } });
         setStudents(res.data.students || []);
       } catch (err) { console.error(err); }
     };
@@ -101,7 +104,7 @@ const CreateReportModal = ({ onClose, onSaved }) => {
     setLoading(true);
     const loadToast = toast.loading('Synchronizing Report...');
     try {
-      await axios.post(REPORTS_API, { ...form, tests }, { headers: { Authorization: `Bearer ${AUTH_TOKEN()}` } });
+      await axios.post(REPORTS_API, { ...form, tests }, { headers: { Authorization: \`Bearer \${AUTH_TOKEN()}\` } });
       toast.success('Report Synchronized', { id: loadToast });
       onSaved();
       onClose();
@@ -172,15 +175,15 @@ const CreateReportModal = ({ onClose, onSaved }) => {
                    <motion.div key={idx} initial={{ opacity: 0, scale: 0.98 }} animate={{ opacity: 1, scale: 1 }} className="grid grid-cols-12 gap-5 items-end bg-slate-50/50 p-6 rounded-[32px] border border-slate-100 hover:border-indigo-100 transition-all group">
                      <div className="col-span-5">
                        <label className={lbl}>Vector Identity (Subject/Test)</label>
-                       <input className={`${inp} bg-white`} placeholder="e.g. Data structures" value={test.testName} onChange={e => updateTest(idx, 'testName', e.target.value)} required />
+                       <input className={\`\${inp} bg-white\`} placeholder="e.g. Data structures" value={test.testName} onChange={e => updateTest(idx, 'testName', e.target.value)} required />
                      </div>
                      <div className="col-span-3">
                        <label className={lbl}>Marks Gained</label>
-                       <input type="number" className={`${inp} bg-white text-center font-display text-lg`} placeholder="0" value={test.marksObtained} onChange={e => updateTest(idx, 'marksObtained', e.target.value)} required />
+                       <input type="number" className={\`\${inp} bg-white text-center font-display text-lg\`} placeholder="0" value={test.marksObtained} onChange={e => updateTest(idx, 'marksObtained', e.target.value)} required />
                      </div>
                      <div className="col-span-3">
                        <label className={lbl}>Maximum Potential</label>
-                       <input type="number" className={`${inp} bg-white text-center font-display text-lg`} placeholder="100" value={test.totalMarks} onChange={e => updateTest(idx, 'totalMarks', e.target.value)} required />
+                       <input type="number" className={\`\${inp} bg-white text-center font-display text-lg\`} placeholder="100" value={test.totalMarks} onChange={e => updateTest(idx, 'totalMarks', e.target.value)} required />
                      </div>
                      <div className="col-span-1 flex justify-center">
                         <button type="button" onClick={() => removeTest(idx)} className="p-3 text-slate-300 hover:text-rose-500 transition-all opacity-0 group-hover:opacity-100"><MdDeleteOutline size={26}/></button>
@@ -200,11 +203,11 @@ const CreateReportModal = ({ onClose, onSaved }) => {
                  </div>
                  <div>
                     <label className={lbl}>Student Behavior (Vyavhar)</label>
-                    <textarea className={`${inp} min-h-[60px] resize-none`} value={form.behavior} onChange={e => setForm({...form, behavior: e.target.value})} placeholder="e.g. Respectful, Good, or Needs Focus..." />
+                    <textarea className={\`\${inp} min-h-[60px] resize-none\`} value={form.behavior} onChange={e => setForm({...form, behavior: e.target.value})} placeholder="e.g. Respectful, Good, or Needs Focus..." />
                  </div>
                  <div>
                     <label className={lbl}>Official Remarks</label>
-                    <textarea className={`${inp} min-h-[60px] resize-none`} value={form.remarks} onChange={e => setForm({...form, remarks: e.target.value})} placeholder="Professional assessment..." />
+                    <textarea className={\`\${inp} min-h-[60px] resize-none\`} value={form.remarks} onChange={e => setForm({...form, remarks: e.target.value})} placeholder="Professional assessment..." />
                  </div>
               </div>
            </div>
@@ -265,7 +268,7 @@ const Reports = () => {
     if (!isSilent) setLoading(true);
     else setRefreshing(true);
     try {
-      const config = { headers: { Authorization: `Bearer ${AUTH_TOKEN()}` } };
+      const config = { headers: { Authorization: \`Bearer \${AUTH_TOKEN()}\` } };
       const [repRes, stuRes, tskRes] = await Promise.all([
         axios.get(REPORTS_API, config),
         axios.get(STUDENTS_API, config),
@@ -300,7 +303,7 @@ const Reports = () => {
   const handleDelete = async (id) => {
     if (!confirm('Purge dossier?')) return;
     try {
-      await axios.delete(`${REPORTS_API}/${id}`, { headers: { Authorization: `Bearer ${AUTH_TOKEN()}` } });
+      await axios.delete(\`\${REPORTS_API}/\${id}\`, { headers: { Authorization: \`Bearer \${AUTH_TOKEN()}\` } });
       toast.success('Purged');
       fetchAllData(true);
     } catch { toast.error('Purge Fault'); }
@@ -314,7 +317,6 @@ const Reports = () => {
       ...latest,
       reportTitle: "Consolidated Academic History",
       tests: allTests,
-      allReports: group.allReports, // Pass the list of all reports
       remarks: latest.remarks || "Automated consolidation of student records."
     };
     setSelectedReport(consolidated);
@@ -337,47 +339,28 @@ const Reports = () => {
 
     return (
       <div className="w-full space-y-10 animate-in fade-in duration-700 pb-20">
-        <style>{`
+        <style>{\`
           @media print {
             @page { size: A4; margin: 0; }
-            html, body { 
-              margin: 0 !important; 
-              padding: 0 !important; 
-              width: 100% !important; 
-              height: 100% !important;
-              background: white !important; 
-            }
-            body {
-              display: flex !important;
-              justify-content: center !important;
-              align-items: flex-start !important;
-            }
-            body * { visibility: hidden !important; }
-            #printable-marksheet, #printable-marksheet * { visibility: visible !important; }
+            body { margin: 0; padding: 0; background: white !important; }
+            body * { visibility: hidden; }
+            #printable-marksheet, #printable-marksheet * { visibility: visible; }
             #printable-marksheet { 
-              position: relative !important; 
-              width: 210mm !important; 
-              min-height: 297mm !important; 
-              padding: 25mm !important; 
-              background: white !important; 
-              color: black !important; 
-              display: block !important; 
-              z-index: 99999 !important;
-              box-sizing: border-box !important;
-              margin: 0 !important;
+              position: absolute; left: 0; top: 0; width: 100%; min-height: 297mm; padding: 15mm; background: white !important; color: black !important; display: block !important; z-index: 9999;
             }
-            .marksheet-border { border: 4px double #1e293b !important; padding: 15mm !important; }
+            .marksheet-border { border: 6px double #1e293b !important; padding: 10mm !important; }
           }
-        `}</style>
+        \`}</style>
 
         <div id="printable-marksheet" className="hidden print:block bg-white marksheet-border relative">
            <div className="absolute top-0 left-0 w-32 h-32 border-t-8 border-l-8 border-indigo-700/20 rounded-tl-3xl pointer-events-none" />
            <div className="absolute top-0 right-0 w-32 h-32 border-t-8 border-r-8 border-indigo-700/20 rounded-tr-3xl pointer-events-none" />
            <div className="absolute bottom-0 left-0 w-32 h-32 border-b-8 border-l-8 border-indigo-700/20 rounded-bl-3xl pointer-events-none" />
            <div className="absolute bottom-0 right-0 w-32 h-32 border-b-8 border-r-8 border-indigo-700/20 rounded-br-3xl pointer-events-none" />
-            <div style={{ width: '100%', borderBottom: '6px double #1e1b4b', paddingBottom: '30px', marginBottom: '40px', textAlign: 'center' }}>
-               <img src="/logo.png" alt="TIPS-G Logo" style={{ height: '140px', width: 'auto', display: 'block', margin: '0 auto' }} />
-            </div>
+           <div className="text-center space-y-4 mb-10 border-b-[6px] border-double border-indigo-900 pb-10 relative z-10">
+              <h1 className="text-6xl font-black text-indigo-800 uppercase font-display leading-none">TIPS-G ALWAR</h1>
+              <p className="text-[11px] font-black tracking-[0.6em] text-slate-400 uppercase mt-2">Official Academic Dossier</p>
+           </div>
            <div className="p-10 bg-slate-50/50 rounded-[48px] border border-slate-100 mb-10">
               <p className="text-[10px] font-black text-slate-400 uppercase mb-1">Student Identity</p>
               <p className="text-4xl font-black text-slate-900 uppercase">{selectedReport.student?.fullName}</p>
@@ -425,75 +408,6 @@ const Reports = () => {
                     <p className="text-xl font-bold text-slate-700 italic">"{selectedReport.behavior || "Consistent performance and focus."}"</p>
                  </div>
               </div>
-
-               {/* ── HISTORICAL REPORT CARDS ── */}
-               <div className="mt-16">
-                  <h3 className="text-sm font-black text-slate-800 uppercase tracking-widest mb-8 flex items-center gap-4">
-                     <MdHistory className="text-indigo-600" size={24} /> Historical Report Archive
-                  </h3>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                     {selectedReport.allReports?.map((r, i) => {
-                        const obtained = r.tests?.reduce((a, b) => a + (b.marksObtained || 0), 0) || 0;
-                        const total = r.tests?.reduce((a, b) => a + (b.totalMarks || 0), 0) || 100;
-                        const perc = Math.round((obtained / total) * 100);
-                        return (
-                           <div key={i} className="bg-slate-50/50 p-8 rounded-[40px] border border-slate-100 hover:border-indigo-200 transition-all group relative overflow-hidden">
-                              <div className="absolute top-0 right-0 w-24 h-24 bg-indigo-600/5 rounded-bl-full -mr-10 -mt-10" />
-                              <div className="flex justify-between items-start mb-6 relative z-10">
-                                 <div>
-                                    <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">{r.reportType} Dossier</p>
-                                    <h4 className="text-xl font-black text-slate-800 font-display">{r.reportTitle}</h4>
-                                 </div>
-                                 <div className="text-right space-y-2">
-                                    <span className={`inline-block px-4 py-1.5 rounded-full text-[9px] font-black uppercase tracking-widest ${r.overallPerformance === 'Excellent' ? 'bg-emerald-100 text-emerald-600' : 'bg-slate-200 text-slate-500'}`}>{r.overallPerformance}</span>
-                                    <p className="text-2xl font-black text-indigo-600 font-display leading-none">{perc}%</p>
-                                    <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest">{obtained}/{total} Marks</p>
-                                 </div>
-                              </div>
-                              <div className="flex items-center gap-6 text-[10px] font-black text-slate-400 uppercase tracking-widest relative z-10">
-                                 <span className="flex items-center gap-2"><MdCalendarToday /> {new Date(r.fromDate).toLocaleDateString()}</span>
-                                 <div className="w-4 h-px bg-slate-200" />
-                                 <span>{new Date(r.toDate).toLocaleDateString()}</span>
-                              </div>
-                              <div className="mt-6 pt-6 border-t border-slate-100 space-y-6 relative z-10">
-                                 <div>
-                                    <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-2 flex items-center gap-2"><MdPerson className="text-indigo-600"/> Student Behavior (Vyavhar)</p>
-                                    <p className="text-xs font-bold text-slate-700 leading-relaxed italic bg-indigo-50/50 p-4 rounded-2xl border border-indigo-100/50">"{r.behavior || "Exemplary conduct observed."}"</p>
-                                 </div>
-                                 
-                                 <div>
-                                    <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-3 flex items-center gap-2"><MdAssessment className="text-indigo-600"/> Assessment Vectors (Test Details)</p>
-                                    <div className="space-y-2">
-                                       {r.tests?.map((t, ti) => (
-                                          <div key={ti} className="flex justify-between items-center bg-white p-3 rounded-xl border border-slate-100 shadow-sm text-[10px]">
-                                             <div className="flex items-center gap-4">
-                                                <div className="w-1.5 h-1.5 bg-indigo-500 rounded-full" />
-                                                <span className="font-black text-slate-700">{t.testName}</span>
-                                                <span className="text-slate-300">|</span>
-                                                <span className="text-slate-400 font-bold uppercase">{new Date(t.date).toLocaleDateString('en-GB')}</span>
-                                             </div>
-                                             <span className="font-black text-indigo-600 font-display">{t.marksObtained}/{t.totalMarks}</span>
-                                          </div>
-                                       ))}
-                                    </div>
-                                 </div>
-
-                                 <div className="pt-6 border-t border-slate-100 flex justify-between items-center">
-                                    <div className="min-w-0">
-                                       <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-1">Official Remarks</p>
-                                       <p className="text-[10px] font-bold text-slate-500 italic truncate max-w-[150px]">"{r.remarks}"</p>
-                                    </div>
-                                    <div className="flex gap-2">
-                                       <button onClick={() => { setSelectedReport(r); window.scrollTo(0, 0); }} className="p-3 bg-white text-slate-400 hover:text-indigo-600 rounded-xl shadow-sm border border-slate-100 transition-all hover:scale-110" title="Switch to this report"><MdRefresh size={18}/></button>
-                                       <button onClick={() => handleDelete(r._id)} className="p-3 bg-white text-slate-400 hover:text-rose-600 rounded-xl shadow-sm border border-slate-100 transition-all hover:scale-110" title="Delete record"><MdDeleteOutline size={18}/></button>
-                                    </div>
-                                 </div>
-                              </div>
-                           </div>
-                        );
-                     })}
-                  </div>
-               </div>
            </div>
         </div>
       </div>
@@ -510,7 +424,7 @@ const Reports = () => {
             </p>
          </div>
          <div className="flex items-center gap-6">
-            <button onClick={() => fetchAllData(true)} className={`p-5 rounded-2xl bg-white border border-slate-100 text-slate-400 hover:text-indigo-600 hover:bg-indigo-50 transition-all shadow-sm ${refreshing ? 'animate-spin' : ''}`}><MdRefresh size={24} /></button>
+            <button onClick={() => fetchAllData(true)} className={\`p-5 rounded-2xl bg-white border border-slate-100 text-slate-400 hover:text-indigo-600 hover:bg-indigo-50 transition-all shadow-sm \${refreshing ? 'animate-spin' : ''}\`}><MdRefresh size={24} /></button>
             <button onClick={() => setModalOpen(true)} className="bg-indigo-600 text-white px-8 py-4 rounded-2xl font-black text-[11px] uppercase tracking-widest shadow-xl shadow-indigo-100 hover:bg-indigo-700 transition-all flex items-center gap-3 active:scale-95"><MdAnalytics size={22} /> Students Generate Report</button>
          </div>
        </div>
@@ -518,7 +432,7 @@ const Reports = () => {
        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {stats.map(s => (
             <div key={s.label} className="bg-white/60 backdrop-blur-2xl p-8 rounded-[44px] border border-white/60 shadow-sm flex items-center gap-7 group hover:shadow-2xl transition-all">
-               <div className={`w-16 h-16 rounded-[24px] ${s.bg} ${s.color} flex items-center justify-center text-3xl transition-transform group-hover:scale-110`}>{s.icon}</div>
+               <div className={\`w-16 h-16 rounded-[24px] \${s.bg} \${s.color} flex items-center justify-center text-3xl transition-transform group-hover:scale-110\`}>{s.icon}</div>
                <div><p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">{s.label}</p><p className="text-3xl font-black text-slate-800 font-display mt-0.5 tracking-tighter">{s.val}</p></div>
             </div>
           ))}
@@ -530,7 +444,7 @@ const Reports = () => {
             { id: 'registry', label: 'Student Stream', icon: <MdPeople /> },
             { id: 'questions', label: 'Questions Lab', icon: <MdQuiz /> }
           ].map(tab => (
-            <button key={tab.id} onClick={() => setActiveTab(tab.id)} className={`px-10 py-4 rounded-[28px] text-[10px] font-black uppercase tracking-[0.25em] flex items-center gap-3 transition-all ${activeTab === tab.id ? 'bg-white text-indigo-600 shadow-lg' : 'text-slate-400 hover:text-slate-600'}`}>{tab.icon} {tab.label}</button>
+            <button key={tab.id} onClick={() => setActiveTab(tab.id)} className={\`px-10 py-4 rounded-[28px] text-[10px] font-black uppercase tracking-[0.25em] flex items-center gap-3 transition-all \${activeTab === tab.id ? 'bg-white text-indigo-600 shadow-lg' : 'text-slate-400 hover:text-slate-600'}\`}>{tab.icon} {tab.label}</button>
           ))}
        </div>
 
@@ -562,7 +476,7 @@ const Reports = () => {
                                  <td className="px-12 py-6">
                                     <div className="flex items-center gap-5">
                                        <div className="w-14 h-14 rounded-[22px] bg-white overflow-hidden ring-4 ring-slate-50 shadow-sm group-hover:ring-indigo-100 shrink-0">
-                                          <img src={g.student?.profileImage ? `http://localhost:7001/${g.student.profileImage.replace(/\\/g, '/')}` : `https://api.dicebear.com/7.x/avataaars/svg?seed=${g.student?.fullName}`} className="w-full h-full object-cover" />
+                                          <img src={g.student?.profileImage ? \`http://localhost:7001/\${g.student.profileImage.replace(/\\\\/g, '/')}\` : \`https://api.dicebear.com/7.x/avataaars/svg?seed=\${g.student?.fullName}\`} className="w-full h-full object-cover" />
                                        </div>
                                        <div className="min-w-0">
                                           <p className="text-base font-black text-slate-800 leading-tight mb-1 group-hover:text-indigo-600 truncate font-display">{g.student?.fullName}</p>
@@ -574,11 +488,11 @@ const Reports = () => {
                                  <td className="px-10 py-6 text-center">
                                     <div className="flex flex-col items-center">
                                        <span className="text-sm font-black text-slate-800 font-display">{g.latestReport.averageTestMarks?.toFixed(0) || 0}%</span>
-                                       <div className="w-16 h-1.5 bg-slate-100 rounded-full mt-2.5 overflow-hidden shadow-inner"><div className="h-full bg-indigo-500 rounded-full" style={{width:`${g.latestReport.averageTestMarks || 0}%`}}/></div>
+                                       <div className="w-16 h-1.5 bg-slate-100 rounded-full mt-2.5 overflow-hidden shadow-inner"><div className="h-full bg-indigo-500 rounded-full" style={{width:\`\${g.latestReport.averageTestMarks || 0}%\`}}/></div>
                                     </div>
                                  </td>
                                  <td className="px-10 py-6 text-center">
-                                    <span className={`px-5 py-2 rounded-full text-[10px] font-black uppercase tracking-widest ${g.latestReport.overallPerformance === 'Excellent' ? 'bg-emerald-50 text-emerald-600 border border-emerald-100' : 'bg-slate-100 text-slate-400 border border-slate-200/50'}`}>{g.latestReport.overallPerformance}</span>
+                                    <span className={\`px-5 py-2 rounded-full text-[10px] font-black uppercase tracking-widest \${g.latestReport.overallPerformance === 'Excellent' ? 'bg-emerald-50 text-emerald-600 border border-emerald-100' : 'bg-slate-100 text-slate-400 border border-slate-200/50'}\`}>{g.latestReport.overallPerformance}</span>
                                  </td>
                                  <td className="px-12 py-6 text-right space-x-2" onClick={e=>e.stopPropagation()}>
                                     <button onClick={() => handleOpenDetail(g)} className="p-3 bg-white text-slate-400 hover:text-indigo-600 rounded-xl shadow-sm border border-slate-100 transition-all hover:scale-110"><MdVisibility size={20}/></button>
@@ -596,11 +510,11 @@ const Reports = () => {
          {activeTab === 'registry' && (
             <motion.div key="registry" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                {students.map((s, idx) => (
-                 <div key={s._id} className="bg-white/80 backdrop-blur-2xl p-10 rounded-[48px] border border-slate-200/50 shadow-sm relative group hover:shadow-2xl transition-all cursor-pointer overflow-hidden" onClick={() => navigate(`/students/${s._id}`)}>
+                 <div key={s._id} className="bg-white/80 backdrop-blur-2xl p-10 rounded-[48px] border border-slate-200/50 shadow-sm relative group hover:shadow-2xl transition-all cursor-pointer overflow-hidden" onClick={() => navigate(\`/students/\${s._id}\`)}>
                     <div className="absolute top-0 right-0 w-32 h-32 bg-indigo-600 opacity-[0.02] rounded-bl-full" />
                     <div className="flex items-center gap-6 mb-10 relative z-10">
                        <div className="w-20 h-20 rounded-[28px] bg-slate-50 overflow-hidden ring-4 ring-white shadow-2xl transition-transform group-hover:scale-105">
-                          <img src={s.profileImage ? `http://localhost:7001/${s.profileImage}` : `https://api.dicebear.com/7.x/avataaars/svg?seed=${s.fullName}`} className="w-full h-full object-cover" />
+                          <img src={s.profileImage ? \`http://localhost:7001/\${s.profileImage}\` : \`https://api.dicebear.com/7.x/avataaars/svg?seed=\${s.fullName}\`} className="w-full h-full object-cover" />
                        </div>
                        <div className="min-w-0">
                           <h4 className="text-xl font-black text-slate-800 tracking-tight leading-tight mb-1 group-hover:text-indigo-600 truncate font-display">{s.fullName}</h4>
@@ -651,7 +565,7 @@ const Reports = () => {
                           <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-1.5">Source Operation</p>
                           <p className="text-xs font-bold text-slate-500 truncate">{q.taskTitle}</p>
                        </div>
-                       <button onClick={()=>navigate(`/tasks/${q.id}`)} className="w-12 h-12 bg-slate-50 text-slate-300 hover:text-indigo-600 hover:bg-white rounded-2xl flex items-center justify-center transition-all shadow-sm hover:scale-110">
+                       <button onClick={()=>navigate(\`/tasks/\${q.id}\`)} className="w-12 h-12 bg-slate-50 text-slate-300 hover:text-indigo-600 hover:bg-white rounded-2xl flex items-center justify-center transition-all shadow-sm hover:scale-110">
                           <MdKeyboardArrowRight size={28} />
                        </button>
                     </div>
@@ -666,4 +580,7 @@ const Reports = () => {
   );
 };
 
-export default Reports;
+export default Reports;\`;
+
+fs.writeFileSync(path, content);
+console.log("File completely reconstructed successfully!");

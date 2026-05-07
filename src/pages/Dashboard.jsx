@@ -132,14 +132,17 @@ const Dashboard = () => {
 
       {/* 🚀 ELITE HEADER */}
       <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6">
-        <div>
-          <h1 className="text-4xl font-black text-slate-800 tracking-tight font-display mb-1">
-            {getGreeting()}
-          </h1>
-          <p className="text-slate-400 font-bold text-xs tracking-[0.1em] uppercase flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-            Faculty Management Portal • Connection Active
-          </p>
+        <div className="flex items-center gap-10">
+          <img src="/logo.png" alt="TIPS-G Logo" className="h-28 w-auto hidden sm:block border-r-4 border-indigo-600 pr-10" />
+          <div>
+            <h1 className="text-4xl font-black text-slate-800 tracking-tight font-display mb-1">
+              {getGreeting()}
+            </h1>
+            <p className="text-slate-400 font-bold text-xs tracking-[0.1em] uppercase flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+              Faculty Management Portal • Connection Active
+            </p>
+          </div>
         </div>
         <div className="flex items-center gap-4 bg-white p-2 rounded-3xl border border-slate-100 shadow-sm">
           <div className="px-6 py-3 bg-slate-50 rounded-2xl flex items-center gap-4">
