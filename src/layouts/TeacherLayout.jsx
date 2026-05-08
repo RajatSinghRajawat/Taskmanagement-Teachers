@@ -7,7 +7,7 @@ const TeacherLayout = () => {
   const [isMobileOpen, setIsMobileOpen] = useState(false);
 
   return (
-    <div className="flex h-screen bg-[#f8fafc] font-sans overflow-hidden selection:bg-indigo-100 selection:text-indigo-900 text-slate-900">
+    <div className="flex h-screen bg-[#f8fafc] font-sans overflow-hidden selection:bg-blue-100 selection:text-blue-900 text-slate-900">
       {/* Sidebar Component */}
       <Sidebar isMobileOpen={isMobileOpen} setIsMobileOpen={setIsMobileOpen} />
 

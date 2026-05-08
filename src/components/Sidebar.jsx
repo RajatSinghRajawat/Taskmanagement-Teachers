@@ -105,7 +105,7 @@ const Sidebar = ({ isMobileOpen, setIsMobileOpen }) => {
         <div className={`flex flex-col items-center justify-center p-4 mb-2 border-b border-slate-50 relative group min-h-[140px]`}>
           <button
             onClick={isMobile ? () => setIsMobileOpen(false) : toggleSidebar}
-            className="absolute right-2 top-2 p-1.5 rounded-lg bg-slate-50 text-slate-400 hover:bg-indigo-50 hover:text-indigo-600 transition-all active:scale-95 border border-slate-100 shadow-sm z-10"
+            className="absolute right-2 top-2 p-1.5 rounded-lg bg-slate-50 text-slate-400 hover:bg-blue-50 hover:text-blue-700 transition-all active:scale-95 border border-slate-100 shadow-sm z-10"
           >
             {isMobile ? <MdClose size={16} /> : (isOpen ? <MdMenuOpen size={16} /> : <MdMenu size={16} />)}
           </button>
@@ -129,14 +129,14 @@ const Sidebar = ({ isMobileOpen, setIsMobileOpen }) => {
               className={({ isActive }) => `
                 flex items-center gap-4 px-4 py-3.5 rounded-2xl transition-all duration-300 group relative
                 ${isActive
-                  ? 'bg-indigo-50 text-indigo-600 font-bold shadow-sm'
-                  : 'text-slate-500 hover:bg-slate-50 hover:text-indigo-600 font-medium'
+                  ? 'bg-blue-50 text-blue-700 font-bold shadow-sm'
+                  : 'text-slate-500 hover:bg-slate-50 hover:text-blue-700 font-medium'
                 }
               `}
             >
               {({ isActive }) => (
                 <>
-                  <div className={`transition-transform duration-300 group-hover:scale-110 shrink-0 ${isActive ? 'text-indigo-600' : 'text-slate-400 group-hover:text-indigo-500'}`}>
+                  <div className={`transition-transform duration-300 group-hover:scale-110 shrink-0 ${isActive ? 'text-blue-700' : 'text-slate-400 group-hover:text-blue-600'}`}>
                     {item.icon}
                   </div>
                   {(isMobile || isOpen) && (
@@ -145,7 +145,7 @@ const Sidebar = ({ isMobileOpen, setIsMobileOpen }) => {
                     </span>
                   )}
                   {isActive && (
-                    <div className="absolute left-0 w-1 h-5 bg-indigo-600 rounded-r-full" />
+                    <div className="absolute left-0 w-1 h-5 bg-blue-700 rounded-r-full" />
                   )}
                 </>
               )}
@@ -161,8 +161,8 @@ const Sidebar = ({ isMobileOpen, setIsMobileOpen }) => {
               onClick={() => isMobile && setIsMobileOpen(false)}
               className={`flex items-center gap-3 flex-1 overflow-hidden group`}
             >
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-500 to-purple-600 p-0.5 shadow-sm shrink-0 relative group-hover:scale-110 transition-transform duration-300">
-                <div className="w-full h-full rounded-[10px] bg-white overflow-hidden flex items-center justify-center font-bold text-indigo-600 text-xs">
+              <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 to-blue-800 p-0.5 shadow-sm shrink-0 relative group-hover:scale-110 transition-transform duration-300">
+                <div className="w-full h-full rounded-[10px] bg-white overflow-hidden flex items-center justify-center font-bold text-blue-800 text-xs">
                   {user?.profileImage ? (
                     <img
                       src={`http://localhost:7001/${user.profileImage}`}
@@ -177,10 +177,10 @@ const Sidebar = ({ isMobileOpen, setIsMobileOpen }) => {
 
               {(isMobile || isOpen) && (
                 <div className="overflow-hidden animate-in fade-in slide-in-from-left-2 duration-300">
-                  <p className="text-sm font-bold text-slate-800 truncate leading-none mb-1 font-display">
+                  <p className="text-sm font-bold text-slate-800 truncate leading-none mb-1 ">
                     {user?.name ? `${user.name.split(' ')[0]} ${user.gender === 'Female' ? 'Mam' : 'Sir'}` : 'Teacher'}
                   </p>
-                  <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">
+                  <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide">
                     Admin
                   </p>
                 </div>

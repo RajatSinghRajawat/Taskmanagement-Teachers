@@ -83,8 +83,8 @@ const Dashboard = () => {
 
   if (loading) return (
     <div className="flex flex-col items-center justify-center min-h-[60vh] space-y-4">
-      <div className="w-14 h-14 border-4 border-indigo-100 border-t-indigo-600 rounded-full animate-spin"></div>
-      <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.3em]">Loading Dashboard Data...</p>
+      <div className="w-14 h-14 border-4 border-blue-100 border-t-blue-700 rounded-full animate-spin"></div>
+      <p className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.3em]">Loading Dashboard Data...</p>
     </div>
   );
 
@@ -93,8 +93,8 @@ const Dashboard = () => {
       label: 'Enrolled Students',
       val: data.students.length,
       icon: <MdPeople size={26} />,
-      color: 'text-indigo-600',
-      bg: 'bg-indigo-50',
+      color: 'text-blue-700',
+      bg: 'bg-blue-50',
       path: '/students',
       desc: 'Total active student accounts'
     },
@@ -102,8 +102,8 @@ const Dashboard = () => {
       label: 'Assigned Tasks',
       val: data.tasks.filter(t => t.Title).length,
       icon: <MdAssignment size={26} />,
-      color: 'text-purple-600',
-      bg: 'bg-purple-50',
+      color: 'text-blue-700',
+      bg: 'bg-blue-50',
       path: '/tasks',
       desc: 'Active curriculum assignments'
     },
@@ -133,9 +133,9 @@ const Dashboard = () => {
       {/* 🚀 ELITE HEADER */}
       <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6">
         <div className="flex items-center gap-10">
-          <img src="/logo.png" alt="TIPS-G Logo" className="h-28 w-auto hidden sm:block border-r-4 border-indigo-600 pr-10" />
+          <img src="/logo.png" alt="TIPS-G Logo" className="h-28 w-auto hidden sm:block border-r-4 border-blue-700 pr-10" />
           <div>
-            <h1 className="text-4xl font-black text-slate-800 tracking-tight font-display mb-1">
+            <h1 className="text-4xl font-bold text-slate-800 tracking-tight  mb-1">
               {getGreeting()}
             </h1>
             <p className="text-slate-400 font-bold text-xs tracking-[0.1em] uppercase flex items-center gap-2">
@@ -146,14 +146,14 @@ const Dashboard = () => {
         </div>
         <div className="flex items-center gap-4 bg-white p-2 rounded-3xl border border-slate-100 shadow-sm">
           <div className="px-6 py-3 bg-slate-50 rounded-2xl flex items-center gap-4">
-            <MdAccessTime size={20} className="text-indigo-600" />
-            <span className="text-sm font-black text-slate-800 tabular-nums">
+            <MdAccessTime size={20} className="text-blue-700" />
+            <span className="text-sm font-bold text-slate-800 tabular-nums">
               {currentTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' })}
             </span>
           </div>
           <button
             onClick={() => fetchAll(true)}
-            className={`p-4 bg-indigo-600 text-white rounded-2xl hover:bg-indigo-700 transition-all active:scale-95 shadow-lg shadow-indigo-100 ${refreshing ? 'animate-spin' : ''}`}
+            className={`p-4 bg-blue-700 text-white rounded-2xl hover:bg-blue-800 transition-all active:scale-95 shadow-lg shadow-blue-100 ${refreshing ? 'animate-spin' : ''}`}
           >
             <MdAutorenew size={22} />
           </button>
@@ -167,19 +167,19 @@ const Dashboard = () => {
             whileHover={{ y: -5 }}
             key={i}
             onClick={() => navigate(s.path)}
-            className="bg-white/80 backdrop-blur-xl p-6 rounded-[32px] border border-white shadow-[0_8px_30px_rgb(0,0,0,0.02)] hover:shadow-2xl hover:shadow-indigo-500/5 transition-all group cursor-pointer relative overflow-hidden"
+            className="bg-white/80 backdrop-blur-xl p-6 rounded-[32px] border border-white shadow-[0_8px_30px_rgb(0,0,0,0.02)] hover:shadow-2xl hover:shadow-blue-600/5 transition-all group cursor-pointer relative overflow-hidden"
           >
             <div className="absolute top-0 right-0 w-24 h-24 bg-slate-50 opacity-0 group-hover:opacity-100 rounded-bl-full transition-opacity" />
             <div className={`w-12 h-12 rounded-2xl ${s.bg} ${s.color} flex items-center justify-center mb-4 transition-transform group-hover:scale-110 relative z-10 shadow-inner`}>
               {s.icon}
             </div>
-            <p className="text-[9px] font-black text-slate-400 uppercase tracking-[0.2em] mb-1 relative z-10 opacity-70">{s.label}</p>
+            <p className="text-[9px] font-bold text-slate-400 uppercase tracking-[0.2em] mb-1 relative z-10 opacity-70">{s.label}</p>
             <div className="flex items-end justify-between relative z-10">
               <div className="flex items-baseline gap-1.5">
-                <p className="text-3xl font-black text-slate-800 tracking-tight font-display tabular-nums">{s.val}</p>
+                <p className="text-3xl font-bold text-slate-800 tracking-tight  tabular-nums">{s.val}</p>
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
               </div>
-              <MdKeyboardArrowRight size={20} className="text-slate-300 group-hover:text-indigo-600 transition-colors" />
+              <MdKeyboardArrowRight size={20} className="text-slate-300 group-hover:text-blue-700 transition-colors" />
             </div>
           </motion.div>
         ))}
@@ -191,16 +191,16 @@ const Dashboard = () => {
 
         {/* 🛠️ ELITE COMMAND CENTER */}
         <div className="lg:col-span-2 bg-white/80 backdrop-blur-2xl p-10 rounded-[56px] border border-white shadow-[0_20px_50px_rgba(0,0,0,0.04)] relative overflow-hidden group">
-          <div className="absolute top-0 right-0 w-96 h-96 bg-indigo-500/10 rounded-full blur-[100px] translate-x-20 -translate-y-20 group-hover:scale-110 transition-transform duration-1000" />
-          <div className="absolute -bottom-24 -left-24 w-72 h-72 bg-purple-500/5 rounded-full blur-[80px]" />
+          <div className="absolute top-0 right-0 w-96 h-96 bg-blue-600/10 rounded-full blur-[100px] translate-x-20 -translate-y-20 group-hover:scale-110 transition-transform duration-1000" />
+          <div className="absolute -bottom-24 -left-24 w-72 h-72 bg-blue-500/5 rounded-full blur-[80px]" />
 
           <div className="relative z-10 h-full flex flex-col justify-between">
             <div>
               <div className="flex items-center gap-3 mb-4">
-                <div className="w-10 h-10 rounded-xl bg-indigo-600 text-white flex items-center justify-center shadow-lg shadow-indigo-100">
+                <div className="w-10 h-10 rounded-xl bg-blue-700 text-white flex items-center justify-center shadow-lg shadow-blue-100">
                   <MdAutorenew className="animate-spin-slow" size={20} />
                 </div>
-                <h3 className="text-3xl font-black text-slate-800 font-display tracking-tight">Academic Operations Center</h3>
+                <h3 className="text-3xl font-bold text-slate-800  tracking-tight">Academic Operations Center</h3>
               </div>
               <p className="text-slate-400 text-sm font-bold max-w-md leading-relaxed">
                 Manage curriculum, assign tasks, and handle student enrollment.
@@ -208,13 +208,13 @@ const Dashboard = () => {
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-12">
-              <button onClick={() => navigate('/tasks/create')} className="p-6 bg-indigo-600 text-white rounded-[28px] font-black text-[11px] uppercase tracking-widest flex items-center justify-center gap-3 hover:bg-indigo-700 transition-all shadow-xl shadow-indigo-100 active:scale-95">
+              <button onClick={() => navigate('/tasks/create')} className="p-6 bg-blue-700 text-white rounded-2xl font-bold text-[11px] uppercase tracking-wide flex items-center justify-center gap-3 hover:bg-blue-800 transition-all shadow-xl shadow-blue-100 active:scale-95">
                 <MdAdd size={22} /> Create Assignment
               </button>
-              <button onClick={() => navigate('/students')} className="p-6 bg-white border border-slate-100 text-slate-600 rounded-[28px] font-black text-[11px] uppercase tracking-widest flex items-center justify-center gap-3 hover:bg-slate-50 transition-all active:scale-95 shadow-sm">
+              <button onClick={() => navigate('/students')} className="p-6 bg-white border border-slate-100 text-slate-600 rounded-2xl font-bold text-[11px] uppercase tracking-wide flex items-center justify-center gap-3 hover:bg-slate-50 transition-all active:scale-95 shadow-sm">
                 <MdGroupAdd size={22} /> Enroll Student
               </button>
-              <button onClick={() => navigate('/materials')} className="p-6 bg-white border border-slate-100 text-slate-600 rounded-[28px] font-black text-[11px] uppercase tracking-widest flex items-center justify-center gap-3 hover:bg-slate-50 transition-all active:scale-95 shadow-sm">
+              <button onClick={() => navigate('/materials')} className="p-6 bg-white border border-slate-100 text-slate-600 rounded-2xl font-bold text-[11px] uppercase tracking-wide flex items-center justify-center gap-3 hover:bg-slate-50 transition-all active:scale-95 shadow-sm">
                 <MdCloudUpload size={22} /> Upload Resources
               </button>
             </div>
@@ -225,21 +225,21 @@ const Dashboard = () => {
         {/* 🔔 LIVE ACTIVITY FEED */}
         <div className="bg-white p-10 rounded-[56px] border border-slate-100 shadow-sm flex flex-col">
           <div className="flex justify-between items-center mb-8">
-            <h3 className="text-xl font-black text-slate-800 font-display tracking-tight">Live Feed</h3>
-            <button onClick={() => navigate('/notifications')} className="p-2.5 bg-slate-50 text-indigo-600 rounded-xl hover:bg-indigo-50 transition-all">
+            <h3 className="text-xl font-bold text-slate-800  tracking-tight">Live Feed</h3>
+            <button onClick={() => navigate('/notifications')} className="p-2.5 bg-slate-50 text-blue-700 rounded-xl hover:bg-blue-50 transition-all">
               <MdNotificationsActive size={20} />
             </button>
           </div>
 
           <div className="space-y-6 flex-1 overflow-y-auto max-h-[320px] pr-2 custom-scrollbar">
             {data.notifications.slice(0, 5).map((n, i) => (
-              <div key={i} className="flex items-start gap-4 p-4 rounded-[28px] hover:bg-slate-50 transition-all group cursor-default border border-transparent hover:border-slate-100">
-                <div className="w-12 h-12 rounded-2xl bg-indigo-50 text-indigo-600 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+              <div key={i} className="flex items-start gap-4 p-4 rounded-2xl hover:bg-slate-50 transition-all group cursor-default border border-transparent hover:border-slate-100">
+                <div className="w-12 h-12 rounded-2xl bg-blue-50 text-blue-700 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
                   <MdNotificationsActive size={22} />
                 </div>
                 <div className="min-w-0 flex-1">
                   <p className="text-[13px] font-bold text-slate-700 leading-snug mb-1 line-clamp-2">{n.message}</p>
-                  <p className="text-[9px] font-black text-slate-300 uppercase tracking-widest">
+                  <p className="text-[9px] font-bold text-slate-300 uppercase tracking-wide">
                     {new Date(n.createdAt).toLocaleDateString()} • {new Date(n.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                   </p>
                 </div>
@@ -250,12 +250,12 @@ const Dashboard = () => {
                 <div className="w-16 h-16 bg-slate-50 rounded-full flex items-center justify-center text-slate-300 mb-4">
                   <MdNotificationsActive size={32} />
                 </div>
-                <p className="text-[11px] font-black text-slate-400 uppercase tracking-widest">No notifications found</p>
+                <p className="text-[11px] font-bold text-slate-400 uppercase tracking-wide">No notifications found</p>
               </div>
             )}
           </div>
 
-          <button onClick={() => navigate('/notifications')} className="w-full py-5 mt-6 bg-slate-50 text-slate-400 rounded-[24px] font-black text-[10px] uppercase tracking-widest hover:text-indigo-600 transition-all">
+          <button onClick={() => navigate('/notifications')} className="w-full py-5 mt-6 bg-slate-50 text-slate-400 rounded-2xl font-bold text-[10px] uppercase tracking-wide hover:text-blue-700 transition-all">
             View Notifications
           </button>
         </div>

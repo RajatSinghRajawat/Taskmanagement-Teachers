@@ -176,20 +176,20 @@ const CreateTask = () => {
 
   if (fetching) return (
     <div className="flex flex-col items-center justify-center min-h-[50vh]">
-      <div className="w-12 h-12 border-4 border-indigo-100 border-t-indigo-600 rounded-full animate-spin"></div>
+      <div className="w-12 h-12 border-4 border-blue-100 border-t-blue-700 rounded-full animate-spin"></div>
     </div>
   );
 
-  const inpClass = "w-full px-6 py-4 bg-white/60 border border-slate-200 rounded-2xl text-sm font-bold text-slate-700 placeholder-slate-300 focus:outline-none focus:ring-4 focus:ring-indigo-500/5 focus:border-indigo-400 transition-all shadow-sm";
-  const lblClass = "block text-[11px] font-bold text-slate-400 uppercase tracking-widest mb-2.5 ml-1";
+  const inpClass = "w-full px-6 py-4 bg-white/60 border border-slate-200 rounded-2xl text-sm font-bold text-slate-700 placeholder-slate-300 focus:outline-none focus:ring-4 focus:ring-blue-600/5 focus:border-blue-400 transition-all shadow-sm";
+  const lblClass = "block text-[11px] font-bold text-slate-400 uppercase tracking-wide mb-2.5 ml-1";
 
   const TypeButton = ({ type, currentType, icon: Icon, label, onClick }) => (
     <button 
       onClick={onClick}
-      className={`flex-1 flex flex-col items-center gap-2 py-3 px-2 rounded-2xl border transition-all ${currentType === type ? 'bg-indigo-600 border-indigo-600 text-white shadow-lg shadow-indigo-100' : 'bg-slate-50 border-slate-100 text-slate-400 hover:bg-white hover:border-indigo-200'}`}
+      className={`flex-1 flex flex-col items-center gap-2 py-3 px-2 rounded-2xl border transition-all ${currentType === type ? 'bg-blue-700 border-blue-700 text-white shadow-lg shadow-blue-100' : 'bg-slate-50 border-slate-100 text-slate-400 hover:bg-white hover:border-blue-200'}`}
     >
       <Icon size={20} />
-      <span className="text-[9px] font-black uppercase tracking-widest">{label}</span>
+      <span className="text-[9px] font-bold uppercase tracking-wide">{label}</span>
     </button>
   );
 
@@ -200,11 +200,11 @@ const CreateTask = () => {
       {/* Header */}
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
         <div className="flex items-center gap-4">
-          <button onClick={() => navigate('/tasks')} className="p-3 bg-white rounded-2xl text-slate-400 hover:text-indigo-600 shadow-sm border border-slate-200/50 transition-all active:scale-95">
+          <button onClick={() => navigate('/tasks')} className="p-3 bg-white rounded-2xl text-slate-400 hover:text-blue-700 shadow-sm border border-slate-200/50 transition-all active:scale-95">
             <MdArrowBack size={24} />
           </button>
           <div>
-            <h1 className="text-3xl font-black text-slate-800 tracking-tight font-display">Task Management</h1>
+            <h1 className="text-3xl font-bold text-slate-800 tracking-tight ">Task Management</h1>
             <p className="text-slate-400 font-medium text-sm mt-1">Create assignments or interactive quizzes for your students.</p>
           </div>
         </div>
@@ -214,16 +214,16 @@ const CreateTask = () => {
         
         {/* 📘 SECTION 1: STANDARD TASK */}
         <div className="w-full xl:w-[38%] space-y-6 shrink-0">
-          <div className="bg-white/80 backdrop-blur-2xl p-8 rounded-[40px] border border-slate-200/50 shadow-sm relative overflow-hidden">
-            <div className="absolute top-0 right-0 w-32 h-32 bg-indigo-600 opacity-[0.03] rounded-bl-full" />
+          <div className="bg-white/80 backdrop-blur-2xl p-8 rounded-3xl border border-slate-200/50 shadow-sm relative overflow-hidden">
+            <div className="absolute top-0 right-0 w-32 h-32 bg-blue-700 opacity-[0.03] rounded-bl-full" />
             
             <div className="flex items-center gap-4 mb-8">
-              <div className="w-12 h-12 rounded-2xl bg-indigo-50 text-indigo-600 flex items-center justify-center text-2xl shadow-inner">
+              <div className="w-12 h-12 rounded-2xl bg-blue-50 text-blue-700 flex items-center justify-center text-2xl shadow-inner">
                 <MdLibraryBooks />
               </div>
               <div>
-                <h2 className="text-xl font-bold text-slate-800 font-display">Assignment</h2>
-                <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">General Tasks</p>
+                <h2 className="text-xl font-bold text-slate-800 ">Assignment</h2>
+                <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide">General Tasks</p>
               </div>
             </div>
 
@@ -252,13 +252,13 @@ const CreateTask = () => {
                  </div>
               </div>
 
-              <div className="p-6 bg-indigo-50/30 rounded-3xl border border-indigo-100/50">
+              <div className="p-6 bg-blue-50/30 rounded-3xl border border-blue-100/50">
                 <label className={lblClass}>Resource Upload</label>
                 <div className="relative group cursor-pointer">
                   <input type="file" multiple onChange={e => setSelectedFiles(prev => [...prev, ...Array.from(e.target.files)])} className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10" />
-                  <div className="bg-white border-2 border-dashed border-indigo-200 rounded-2xl p-6 text-center group-hover:border-indigo-400 group-hover:bg-indigo-50/50 transition-all">
+                  <div className="bg-white border-2 border-dashed border-blue-200 rounded-2xl p-6 text-center group-hover:border-blue-400 group-hover:bg-blue-50/50 transition-all">
                      <MdCloudUpload className="mx-auto text-slate-300 mb-2" size={24} />
-                     <p className="text-[9px] font-bold text-slate-400 uppercase tracking-widest">Attach Material</p>
+                     <p className="text-[9px] font-bold text-slate-400 uppercase tracking-wide">Attach Material</p>
                   </div>
                 </div>
                 {selectedFiles.length > 0 && (
@@ -277,7 +277,7 @@ const CreateTask = () => {
             <button 
               onClick={() => handleSubmit('task')}
               disabled={loading}
-              className="mt-8 w-full bg-slate-900 text-white py-4 rounded-2xl font-bold text-sm shadow-xl hover:bg-indigo-600 transition-all active:scale-95 flex items-center justify-center gap-3"
+              className="mt-8 w-full bg-slate-900 text-white py-4 rounded-2xl font-bold text-sm shadow-xl hover:bg-blue-700 transition-all active:scale-95 flex items-center justify-center gap-3"
             >
               <MdLibraryBooks size={20} /> Create Assignment
             </button>
@@ -286,17 +286,17 @@ const CreateTask = () => {
 
         {/* 🧱 SECTION 2: QUESTIONS WALL */}
         <div className="w-full xl:flex-1 space-y-6">
-          <div className="bg-white/80 backdrop-blur-2xl p-8 rounded-[40px] border border-slate-200/50 shadow-sm relative overflow-hidden h-full flex flex-col min-h-[700px]">
-            <div className="absolute top-0 right-0 w-48 h-48 bg-purple-600 opacity-[0.03] rounded-bl-full" />
+          <div className="bg-white/80 backdrop-blur-2xl p-8 rounded-3xl border border-slate-200/50 shadow-sm relative overflow-hidden h-full flex flex-col min-h-[700px]">
+            <div className="absolute top-0 right-0 w-48 h-48 bg-blue-700 opacity-[0.03] rounded-bl-full" />
             
             <div className="flex items-center justify-between mb-8">
               <div className="flex items-center gap-4">
-                <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-purple-500 to-indigo-600 text-white flex items-center justify-center text-2xl shadow-lg shadow-purple-100">
+                <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-blue-500 to-blue-700 text-white flex items-center justify-center text-2xl shadow-lg shadow-purple-100">
                   <MdLayers />
                 </div>
                 <div>
-                  <h2 className="text-2xl font-black text-slate-800 font-display">Interactive Quiz</h2>
-                  <p className="text-[11px] font-bold text-slate-400 uppercase tracking-widest flex items-center gap-2">
+                  <h2 className="text-2xl font-bold text-slate-800 ">Interactive Quiz</h2>
+                  <p className="text-[11px] font-bold text-slate-400 uppercase tracking-wide flex items-center gap-2">
                     <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
                     Live Quiz Mode Active
                   </p>
@@ -304,7 +304,7 @@ const CreateTask = () => {
               </div>
               <button 
                 onClick={addQuestion} 
-                className="px-6 py-3 bg-indigo-50 text-indigo-600 rounded-xl font-bold text-xs flex items-center gap-2 hover:bg-indigo-600 hover:text-white transition-all shadow-sm active:scale-95"
+                className="px-6 py-3 bg-blue-50 text-blue-700 rounded-xl font-bold text-xs flex items-center gap-2 hover:bg-blue-700 hover:text-white transition-all shadow-sm active:scale-95"
               >
                 <MdAdd size={20} /> Add Question
               </button>
@@ -335,9 +335,9 @@ const CreateTask = () => {
                         initial={{ opacity: 0, y: 30 }}
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, scale: 0.9 }}
-                        className="bg-white p-8 rounded-[32px] border border-slate-100 relative group hover:shadow-xl hover:border-indigo-200 transition-all"
+                        className="bg-white p-8 rounded-[32px] border border-slate-100 relative group hover:shadow-xl hover:border-blue-200 transition-all"
                       >
-                         <div className="absolute top-6 left-6 w-8 h-8 bg-slate-900 text-white rounded-lg flex items-center justify-center text-[10px] font-black font-display shadow-lg">
+                         <div className="absolute top-6 left-6 w-8 h-8 bg-slate-900 text-white rounded-lg flex items-center justify-center text-[10px] font-bold  shadow-lg">
                            {idx + 1}
                          </div>
                          <button onClick={() => removeQuestion(idx)} className="absolute top-6 right-6 text-slate-300 hover:text-rose-500 transition-colors opacity-0 group-hover:opacity-100">
@@ -395,11 +395,11 @@ const CreateTask = () => {
                                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                                        {q.options.map((opt, oIdx) => (
                                          <div key={oIdx} className="flex items-center gap-3">
-                                            <div className="w-8 h-8 rounded-lg bg-indigo-50 text-indigo-600 flex items-center justify-center text-[10px] font-black shrink-0 border border-indigo-100">
+                                            <div className="w-8 h-8 rounded-lg bg-blue-50 text-blue-700 flex items-center justify-center text-[10px] font-bold shrink-0 border border-blue-100">
                                               {String.fromCharCode(65 + oIdx)}
                                             </div>
                                             <input 
-                                              className="flex-1 px-4 py-2 bg-slate-50 border border-slate-100 rounded-xl text-xs font-bold text-slate-600 focus:outline-none focus:border-indigo-300" 
+                                              className="flex-1 px-4 py-2 bg-slate-50 border border-slate-100 rounded-xl text-xs font-bold text-slate-600 focus:outline-none focus:border-blue-300" 
                                               value={opt} 
                                               onChange={e => updateOption(idx, oIdx, e.target.value)} 
                                               placeholder={`Option ${String.fromCharCode(65 + oIdx)}`} 
@@ -413,7 +413,7 @@ const CreateTask = () => {
                                         newQ[idx].options.push('');
                                         setQuestions(newQ);
                                       }}
-                                      className="w-full py-2 mt-2 border-2 border-dashed border-slate-100 rounded-xl text-[9px] font-black text-indigo-400 uppercase tracking-widest hover:bg-indigo-50 transition-all"
+                                      className="w-full py-2 mt-2 border-2 border-dashed border-slate-100 rounded-xl text-[9px] font-bold text-indigo-400 uppercase tracking-wide hover:bg-blue-50 transition-all"
                                     >
                                       + Add Logic Path
                                     </button>
@@ -431,7 +431,7 @@ const CreateTask = () => {
             <button 
               onClick={() => handleSubmit('questions')}
               disabled={loading}
-              className="mt-8 w-full bg-indigo-600 text-white py-5 rounded-[24px] font-black text-[12px] uppercase tracking-[0.2em] shadow-xl shadow-indigo-100 hover:bg-indigo-700 transition-all active:scale-95 flex items-center justify-center gap-3"
+              className="mt-8 w-full bg-blue-700 text-white py-5 rounded-2xl font-bold text-[12px] uppercase tracking-[0.2em] shadow-xl shadow-blue-100 hover:bg-blue-800 transition-all active:scale-95 flex items-center justify-center gap-3"
             >
               <MdRocketLaunch size={24} /> Publish Quiz
             </button>
@@ -441,30 +441,30 @@ const CreateTask = () => {
       </div>
 
       {/* Shared Configuration Hub */}
-      <div className="bg-white/80 backdrop-blur-2xl p-10 rounded-[48px] border border-slate-200/50 shadow-sm grid grid-cols-1 md:grid-cols-3 gap-12">
+      <div className="bg-white/80 backdrop-blur-2xl p-10 rounded-3xl border border-slate-200/50 shadow-sm grid grid-cols-1 md:grid-cols-3 gap-12">
         <div className="space-y-5">
-          <h3 className="text-sm font-black text-slate-800 font-display flex items-center gap-3 uppercase tracking-wider">
-            <MdTimer size={20} className="text-indigo-600" /> Deadline Settings
+          <h3 className="text-sm font-bold text-slate-800  flex items-center gap-3 uppercase tracking-wider">
+            <MdTimer size={20} className="text-blue-700" /> Deadline Settings
           </h3>
           <input type="datetime-local" className={inpClass} value={form.Deadline} onChange={e => handleInputChange('Deadline', e.target.value)} />
           <div className="flex items-center justify-between p-5 bg-slate-50 rounded-2xl border border-slate-100">
-             <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Allow Late Entry</span>
-             <div onClick={() => handleInputChange('Late_Allowed', !form.Late_Allowed)} className={`w-12 h-6 rounded-full flex items-center px-1 cursor-pointer transition-all ${form.Late_Allowed ? 'bg-indigo-600' : 'bg-slate-300'}`}>
+             <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wide">Allow Late Entry</span>
+             <div onClick={() => handleInputChange('Late_Allowed', !form.Late_Allowed)} className={`w-12 h-6 rounded-full flex items-center px-1 cursor-pointer transition-all ${form.Late_Allowed ? 'bg-blue-700' : 'bg-slate-300'}`}>
                 <motion.div animate={{ x: form.Late_Allowed ? 24 : 0 }} className="w-4 h-4 bg-white rounded-full shadow-sm" />
              </div>
           </div>
         </div>
 
         <div className="space-y-5">
-          <h3 className="text-sm font-black text-slate-800 font-display flex items-center gap-3 uppercase tracking-wider">
-            <MdFlag size={20} className="text-indigo-600" /> Priority Level
+          <h3 className="text-sm font-bold text-slate-800  flex items-center gap-3 uppercase tracking-wider">
+            <MdFlag size={20} className="text-blue-700" /> Priority Level
           </h3>
           <div className="grid grid-cols-1 gap-2">
             {['Low', 'Medium', 'High'].map(p => (
               <button 
                 key={p} 
                 onClick={() => handleInputChange('Priority', p)}
-                className={`py-4 rounded-2xl text-[10px] font-black uppercase tracking-widest border transition-all flex items-center justify-center gap-3 ${form.Priority === p ? 'bg-indigo-600 border-indigo-600 text-white shadow-lg' : 'bg-white border-slate-100 text-slate-400 hover:border-indigo-100'}`}
+                className={`py-4 rounded-2xl text-[10px] font-bold uppercase tracking-wide border transition-all flex items-center justify-center gap-3 ${form.Priority === p ? 'bg-blue-700 border-blue-700 text-white shadow-lg' : 'bg-white border-slate-100 text-slate-400 hover:border-blue-100'}`}
               >
                 {form.Priority === p && <MdCheckCircle size={16} />}
                 {p} Priority
@@ -474,11 +474,11 @@ const CreateTask = () => {
         </div>
 
         <div className="space-y-5">
-          <h3 className="text-sm font-black text-slate-800 font-display flex items-center gap-3 uppercase tracking-wider">
-            <MdPeople size={20} className="text-indigo-600" /> Target Students
+          <h3 className="text-sm font-bold text-slate-800  flex items-center gap-3 uppercase tracking-wider">
+            <MdPeople size={20} className="text-blue-700" /> Target Students
           </h3>
           <div className="relative">
-             <button type="button" onClick={() => setIsStudentDropdownOpen(!isStudentDropdownOpen)} className="w-full px-6 py-5 bg-slate-50 rounded-2xl border border-slate-100 flex justify-between items-center text-[11px] font-black text-slate-500 uppercase tracking-widest">
+             <button type="button" onClick={() => setIsStudentDropdownOpen(!isStudentDropdownOpen)} className="w-full px-6 py-5 bg-slate-50 rounded-2xl border border-slate-100 flex justify-between items-center text-[11px] font-bold text-slate-500 uppercase tracking-wide">
                 {form.Assigned_To.length === 0 ? 'Broadcast to All' : `${form.Assigned_To.length} Selected`}
                 <MdKeyboardArrowDown className={`transition-transform ${isStudentDropdownOpen ? 'rotate-180' : ''}`} size={22} />
              </button>
@@ -491,16 +491,16 @@ const CreateTask = () => {
                       className="absolute bottom-full mb-4 left-0 right-0 bg-white rounded-3xl shadow-2xl border border-slate-100 z-50 max-h-56 overflow-y-auto p-3 space-y-1 custom-scrollbar"
                    >
                       {students.map(s => (
-                        <div key={s._id} onClick={() => toggleStudentSelection(s._id)} className={`flex items-center gap-3 p-4 rounded-2xl cursor-pointer transition-all ${form.Assigned_To.includes(s._id) ? 'bg-indigo-600 text-white shadow-lg' : 'hover:bg-slate-50 text-slate-600'}`}>
-                           <div className={`w-5 h-5 rounded-lg border-2 flex items-center justify-center ${form.Assigned_To.includes(s._id) ? 'bg-white border-white text-indigo-600' : 'border-slate-200'}`}>{form.Assigned_To.includes(s._id) && <MdCheckCircle size={14} />}</div>
-                           <span className="text-[11px] font-black truncate">{s.fullName}</span>
+                        <div key={s._id} onClick={() => toggleStudentSelection(s._id)} className={`flex items-center gap-3 p-4 rounded-2xl cursor-pointer transition-all ${form.Assigned_To.includes(s._id) ? 'bg-blue-700 text-white shadow-lg' : 'hover:bg-slate-50 text-slate-600'}`}>
+                           <div className={`w-5 h-5 rounded-lg border-2 flex items-center justify-center ${form.Assigned_To.includes(s._id) ? 'bg-white border-white text-blue-700' : 'border-slate-200'}`}>{form.Assigned_To.includes(s._id) && <MdCheckCircle size={14} />}</div>
+                           <span className="text-[11px] font-bold truncate">{s.fullName}</span>
                         </div>
                       ))}
                    </motion.div>
                 )}
              </AnimatePresence>
           </div>
-          <p className="text-[10px] font-bold text-slate-300 italic text-center uppercase tracking-widest">Select specific students or broadcast to all.</p>
+          <p className="text-[10px] font-bold text-slate-300 italic text-center uppercase tracking-wide">Select specific students or broadcast to all.</p>
         </div>
       </div>
     </div>
